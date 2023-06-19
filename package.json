@@ -1,0 +1,22 @@
+{
+  "name": "customer_api",
+  "version": "1.0.0",
+  "description": "Acqualitica Customers API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gusanchefullstack/customers_api.git"
+  },
+  "author": "Gustavo Sanchez (gustavosanchezgalarza@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gusanchefullstack/customers_api/issues"
+  },
+  "homepage": "https://github.com/gusanchefullstack/customers_api#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
