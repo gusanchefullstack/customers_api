@@ -1,21 +1,48 @@
-const getAllOrgs = () => {
-  return;
+const orgDb = require("../database/Organization");
+
+const getAllOrgs = async () => {
+  try {
+    const allOrgs = await orgDb.getAllOrgs();
+    return allOrgs;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const getOneOrg = () => {
-  return;
+const getOneOrg = async (orgId) => {
+  try {
+    const org = await orgDb.getUniqueOrg(orgId);
+    return org;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const createNewOrg = () => {
-  return;
+const createNewOrg = async (org) => {
+  try {
+    const createdOrg = await orgDb.createOrg(org);
+    return createdOrg;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const updateOneOrg = () => {
-  return;
+const updateOneOrg = async (orgId, data) => {
+  try {
+    const updatedOrg = await orgDb.updateUniqueOrg(orgId, data);
+    return updatedOrg;
+  } catch (error) {
+    throw error;
+  }
 };
 
-const deleteOneOrg = () => {
-  return;
+const deleteOrg = async (orgId) => {
+  try {
+    const deletedOrg = await orgDb.deleteOrg(orgId);
+    return deletedOrg;
+  } catch (error) {
+    throw error;
+  }
 };
 
 module.exports = {
@@ -23,5 +50,5 @@ module.exports = {
   getOneOrg,
   createNewOrg,
   updateOneOrg,
-  deleteOneOrg,
+  deleteOrg,
 };

@@ -10,3 +10,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Organization {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  nit     String @unique
+  address String
+  city    String
+  state   String
+  country String
+  sites   Site[]
+  createdAt DateTime  @default(now())
+}
+
+model Site {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  name           String       @unique
+  address        String
+  city           String
+  state          String
+  country        String
+  organizationId String       @db.ObjectId
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  points         Point[]
+  createdAt DateTime  @default(now())
+}
+
+model Point {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  lat    Float?
+  lng    Float?
+  siteId String  @db.ObjectId
+  site   Site    @relation(fields: [siteId], references: [id])
+  boards Board[]
+  createdAt DateTime  @default(now())
+}
+
+model Board {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  boardId String   @db.ObjectId
+  Point   Point    @relation(fields: [pointId], references: [id])
+  pointId String   @db.ObjectId
+  sensors Sensor[]
+  active  Boolean
+  createdAt DateTime  @default(now())
+}
+
+model Sensor {
+  id      String     @id @default(auto()) @map("_id") @db.ObjectId
+  boardId String     @db.ObjectId
+  Board   Board      @relation(fields: [boardId], references: [id])
+  type    SensorType @default(TEMPHUMID)
+  createdAt DateTime  @default(now())
+}
+
+enum SensorType {
+  PH
+  TEMPERATURE
+  HUMIDITY
+  TEMPHUMID
+}

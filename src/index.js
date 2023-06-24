@@ -1,5 +1,6 @@
 const express = require("express");
 const v1Router = require("./v1/routes/index");
+const dotenv = require("dotenv");
 
 const port = 3000;
 
