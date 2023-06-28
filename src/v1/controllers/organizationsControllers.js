@@ -1,22 +1,17 @@
 const organizationService = require("../services/organizationService");
 
-const getAllOrgs = async (req, res) => {
+const getAllOrgs = async (req, res, next) => {
   try {
     const allOrgs = await organizationService.getAllOrgs();
     res
       .status(200)
       .json({ status: "OK", data: allOrgs, items: allOrgs.length });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .json({
-        status: error?.status || "500",
-        message: error?.message || error,
-      });
+    next(error);
   }
 };
 
-const getUniqueOrg = async (req, res) => {
+const getUniqueOrg = async (req, res, next) => {
   const {
     params: { orgId },
   } = req;
@@ -24,14 +19,11 @@ const getUniqueOrg = async (req, res) => {
     const org = await organizationService.getOneOrg(orgId);
     res.status(200).json({ status: "OK", data: org });
   } catch (error) {
-    res.status(error?.status || 500).json({
-      status: error?.status || "500",
-      message: error?.message || error,
-    });
+    next(error);
   }
 };
 
-const createNewOrg = async (req, res) => {
+const createNewOrg = async (req, res, next) => {
   const { body } = req;
   const newOrg = {
     ...body,
@@ -40,14 +32,11 @@ const createNewOrg = async (req, res) => {
     const createdOrg = await organizationService.createNewOrg(newOrg);
     res.status(201).json({ status: "Created", data: createdOrg });
   } catch (error) {
-    res.status(error?.status || 500).json({
-      status: error?.status || "500",
-      message: error?.message || error,
-    });
+    next(error);
   }
 };
 
-const updateUniqueOrg = async (req, res) => {
+const updateUniqueOrg = async (req, res, next) => {
   const {
     params: { orgId },
     body,
@@ -64,14 +53,11 @@ const updateUniqueOrg = async (req, res) => {
     const updatedOrg = await organizationService.updateOneOrg(orgId, changes);
     res.status(200).json({ status: "Updated", data: updatedOrg });
   } catch (error) {
-    res.status(error?.status || 500).json({
-      status: error?.status || "500",
-      message: error?.message || error,
-    });
+    next(error);
   }
 };
 
-const deleteUniqueOrg = async (req, res) => {
+const deleteUniqueOrg = async (req, res, next) => {
   const {
     params: { orgId },
   } = req;
@@ -79,10 +65,7 @@ const deleteUniqueOrg = async (req, res) => {
     const deletedOrg = await organizationService.deleteOrg(orgId);
     res.status(200).json({ status: "Deleted", data: deletedOrg });
   } catch (error) {
-    res.status(error?.status || 500).json({
-      status: error?.status || "500",
-      message: error?.message || error,
-    });
+    next(error);
   }
 };
 

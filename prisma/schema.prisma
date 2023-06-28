@@ -48,6 +48,7 @@ model Point {
 
 model Board {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
   boardId String   @db.ObjectId
   Point   Point    @relation(fields: [pointId], references: [id])
   pointId String   @db.ObjectId

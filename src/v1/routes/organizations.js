@@ -19,7 +19,8 @@ router
     body("name").isString().notEmpty().withMessage("Field required"),
     body("nit")
       .isString()
-      .notEmpty().withMessage("Field required")
+      .notEmpty()
+      .withMessage("Field required")
       .isLength({ min: 9, max: 9 })
       .withMessage("Tax ID invalid"),
     body("address").isString().notEmpty().withMessage("Field required"),

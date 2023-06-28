@@ -1,26 +1,26 @@
 const boardService = require("../services/boardService");
 
-const getAllBoards = (req, res) => {
+const getAllBoards = async (req, res, next) => {
   const allBoards = boardService.getAllBoards();
   res.send("Get all Boards");
 };
 
-const createNewBoard = (req, res) => {
+const createNewBoard = async (req, res, next) => {
   const createdBoard = boardService.createNewBoard();
   res.send("Create new Board");
 };
 
-const getUniqueBoard = (req, res) => {
+const getUniqueBoard = async (req, res, next) => {
   const board = boardService.getOneBoard();
   res.send("Get single Board");
 };
 
-const updateUniqueBoard = (req, res) => {
+const updateUniqueBoard = async (req, res, next) => {
   const updatedBoard = boardService.updateOneBoard();
   res.send("Update single Board");
 };
 
-const deleteUniqueBoard = (req, res) => {
+const deleteUniqueBoard = async (req, res, next) => {
   boardService.deleteOneBoard();
   res.send("Delete single Board");
 };

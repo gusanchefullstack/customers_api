@@ -1,30 +1,28 @@
 const prisma = require("./dbconnection");
+const boom = require("@hapi/boom");
 
 const getAllOrgs = async () => {
   try {
     const allOrgs = await prisma.organization.findMany();
     if (allOrgs.length === 0) {
-      throw { status: 404, message: "No matching records found." };
+      throw boom.notFound();
     }
     return allOrgs;
   } catch (error) {
-    throw { status: error?.status, message: error?.message || error };
+    throw boom.notFound(error.message);
   }
 };
 
 const getUniqueOrg = async (orgId) => {
   try {
-    const org = await prisma.organization.findUnique({
+    const org = await prisma.organization.findUniqueOrThrow({
       where: {
         id: orgId,
       },
     });
-    if (!org) {
-      throw { status: 404, message: "No matching records found." };
-    }
     return org;
   } catch (error) {
-    throw { status: error?.status || 404, message: error?.message || error };
+    throw boom.notFound(error.message);
   }
 };
 
@@ -37,7 +35,7 @@ const createOrg = async (org) => {
     });
     return createdOrg;
   } catch (error) {
-    throw { status: error?.status || 500, message: error?.message || error };
+    throw boom.badGateway(error.message);
   }
 };
 
@@ -53,10 +51,7 @@ const updateUniqueOrg = async (orgId, changes) => {
     });
     return updatedOrg;
   } catch (error) {
-    throw {
-      status: error?.status || 404,
-      message: "No matching record found.",
-    };
+    throw boom.notFound();
   }
 };
 
@@ -69,10 +64,7 @@ const deleteOrg = async (orgId) => {
     });
     return deletedOrg;
   } catch (error) {
-    throw {
-      status: error?.status || 404,
-      message: "No matching record found.",
-    };
+    throw boom.notFound();
   }
 };
 

@@ -1,26 +1,26 @@
 const siteService = require("../services/siteService");
 
-const getAllSites = (req, res) => {
+const getAllSites = async (req, res, next) => {
   const allSites = siteService.getAllSites();
   res.send("Get all Sites");
 };
 
-const createNewSite = (req, res) => {
+const createNewSite = async (req, res, next) => {
   const createdSite = siteService.createNewSite();
   res.send("Create new Site");
 };
 
-const getUniqueSite = (req, res) => {
+const getUniqueSite = async (req, res, next) => {
   const site = siteService.getOneSite();
   res.send("Get single Site");
 };
 
-const updateUniqueSite = (req, res) => {
+const updateUniqueSite = async (req, res, next) => {
   const updatedSite = siteService.updateOneSite();
   res.send("Update single Site");
 };
 
-const deleteUniqueSite = (req, res) => {
+const deleteUniqueSite = async (req, res, next) => {
   siteService.deleteOneSite();
   res.send("Delete single Site");
 };
